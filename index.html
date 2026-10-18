@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DeoriaFreelance - Deoria me kaam dhundho, freelancer pao</title>
+<meta name="description" content="DeoriaFreelance - Deoria aur aas-paas ke ilaake ki freelance site. Chhote kaam daalo (editing, design, typing, form) ya freelancer ke roop me kaam karke paisa kamao.">
+<meta property="og:title" content="DeoriaFreelance - Deoria ki freelance site">
+<meta property="og:description" content="Kaam daalo ya kaam karo - editing, design, typing, form bharna. Deoria ke liye.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://master5625h-bot.github.io/deoria-freelance/">
+<link rel="canonical" href="https://master5625h-bot.github.io/deoria-freelance/">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="logo" href="index.html">Deoria<span>Freelance</span></a>
+<nav class="top"><a href="kaam.html">Kaam</a><a href="freelancers.html">Freelancers</a><a href="post.html">Kaam Daalo</a></nav>
+</div></header>
+<div class="hero"><div class="wrap">
+<h1>Deoria me kaam hai? Freelancer yahan milega.</h1>
+<p>Reel editing, poster design, typing, form bharna - chhote kaam daalo, local freelancer karega. Ya khud freelancer bano aur paisa kamao.</p>
+<a class="btn" href="kaam.html">Kaam Dhundho</a>
+<a class="btn alt" href="post.html">Kaam Daalo</a>
+</div></div>
+<div class="wrap">
+<section>
+<h2 class="sec">Kaise kaam karta hai</h2>
+<div class="steps">
+<div class="step"><b>1.</b> Client kaam daalta hai - title, budget, detail.</div>
+<div class="step"><b>2.</b> Hum kaam check karke site pe list karte hain (fake kaam nahi chalta).</div>
+<div class="step"><b>3.</b> Freelancer "Mai karunga" dabata hai, hum dono ko jodte hain.</div>
+<div class="step"><b>4.</b> Paisa seedha client aur freelancer ke beech (UPI/cash). Site paisa nahi sambhalti.</div>
+</div>
+</section>
+<section>
+<h2 class="sec">Latest kaam</h2>
+<div id="latest-jobs"></div>
+<div class="center mt"><a class="btn ghost" style="color:var(--brand);border-color:var(--brand)" href="kaam.html">Sab kaam dekho</a></div>
+</section>
+<section>
+<h2 class="sec">Freelancers</h2>
+<div id="top-freelancers"></div>
+<div class="center mt"><a class="btn ghost" style="color:var(--brand);border-color:var(--brand)" href="join.html">Apna freelancer profile banao</a></div>
+</section>
+</div>
+<footer class="site">
+DeoriaFreelance • Contact: <a href="mailto:dheerajhj42@gmail.com">dheerajhj42@gmail.com</a><br>
+Paisa site ke through nahi jata - seedha client aur freelancer ke beech.
+</footer>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.getElementById('latest-jobs').innerHTML = JOBS.slice(0,3).map(jobCard).join('');
+document.getElementById('top-freelancers').innerHTML = FREELANCERS.slice(0,3).map(freelancerCard).join('');
+</script>
+</body>
+</html>

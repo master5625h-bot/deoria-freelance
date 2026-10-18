@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kaam daalo - DeoriaFreelance</title>
+<meta name="description" content="Apna kaam DeoriaFreelance pe daalo - editing, design, typing, form bharna. Hum check karke list karte hain.">
+<link rel="canonical" href="https://master5625h-bot.github.io/deoria-freelance/post.html">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="logo" href="index.html">Deoria<span>Freelance</span></a>
+<nav class="top"><a href="kaam.html">Kaam</a><a href="freelancers.html">Freelancers</a><a href="post.html">Kaam Daalo</a></nav>
+</div></header>
+<div class="wrap">
+<section>
+<h2 class="sec">Kaam daalo</h2>
+<div class="alert">Form bharne ke baad email khulegi - use bhej do. Hum kaam <b>check karke</b> site pe daalte hain, isliye fake kaam list nahi hota. Aapka contact detail site pe public nahi hota.</div>
+<form class="post" id="f">
+<div class="field"><label>Kaam ka title *</label><input name="title" required placeholder="Jaise: Shaadi ki reel edit karni hai"></div>
+<div class="grid2">
+<div class="field"><label>Category *</label><select name="cat"><option>Video Editing</option><option>Design</option><option>Typing</option><option>Form Bharna</option><option>Social Media</option><option>Aur Kuch</option></select></div>
+<div class="field"><label>Budget (₹) *</label><input name="budget" required inputmode="numeric" placeholder="Jaise: 500"></div>
+</div>
+<div class="field"><label>Shehar / Area *</label><input name="city" required placeholder="Jaise: Deoria"></div>
+<div class="field"><label>Kaam ki detail *</label><textarea name="desc" required placeholder="Kya karwana hai, kab tak chahiye, koi khaas baat"></textarea></div>
+<div class="field"><label>Aapka naam ya dukaan ka naam *</label><input name="name" required></div>
+<div class="field"><label>Aapka contact (email ya WhatsApp number) *</label><input name="contact" required placeholder="Sirf hum tak pahunchega, public nahi hoga"></div>
+<button class="btn big" type="submit">Kaam bhejo</button>
+<p class="note">* zaruri fields. Submit pe aapka email app khulega, bhej dein.</p>
+</form>
+</section>
+</div>
+<footer class="site">
+DeoriaFreelance • Contact: <a href="mailto:dheerajhj42@gmail.com">dheerajhj42@gmail.com</a>
+</footer>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.getElementById('f').addEventListener('submit',function(e){
+  e.preventDefault();
+  const d=new FormData(e.target);
+  const body='Naya kaam (approval ke liye):\n\nTitle: '+d.get('title')+'\nCategory: '+d.get('cat')+'\nBudget: ₹'+d.get('budget')+'\nShehar: '+d.get('city')+'\nDetail: '+d.get('desc')+'\n\nNaam/dukaan: '+d.get('name')+'\nContact: '+d.get('contact')+'\n';
+  location.href=mailtoLink('Naya kaam: '+d.get('title'),body);
+});
+</script>
+</body>
+</html>

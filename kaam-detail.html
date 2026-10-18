@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kaam detail - DeoriaFreelance</title>
+<meta name="description" content="Kaam ki poori detail dekho aur Mai karunga dabao.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="logo" href="index.html">Deoria<span>Freelance</span></a>
+<nav class="top"><a href="kaam.html">Kaam</a><a href="freelancers.html">Freelancers</a><a href="post.html">Kaam Daalo</a></nav>
+</div></header>
+<div class="wrap">
+<section id="detail"></section>
+</div>
+<footer class="site">
+DeoriaFreelance • Contact: <a href="mailto:dheerajhj42@gmail.com">dheerajhj42@gmail.com</a>
+</footer>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+const id=new URLSearchParams(location.search).get('id');
+const j=JOBS.find(x=>x.id===id);
+const box=document.getElementById('detail');
+if(!j){box.innerHTML='<div class="card">Kaam nahi mila. <a href="kaam.html">Sab kaam dekho</a></div>';}
+else{
+  document.title=j.title+' - DeoriaFreelance';
+  const body='Namaste,\n\nMujhe ye kaam karna hai:\nKaam: '+j.title+' ('+j.id+')\nBudget: ₹'+j.budget+'\n\nMera naam: \nMera WhatsApp ya email: \nMera experience / sample kaam: \n';
+  box.innerHTML='<div class="card"><h3>'+esc(j.title)+'</h3>'
+  +'<div class="meta"><span class="tag">'+esc(j.cat)+'</span><span class="tag green">₹'+esc(j.budget)+'</span>'
+  +(j.sample?'<span class="tag amber">Sample</span>':'')+'</div>'
+  +'<p class="mt">'+esc(j.desc)+'</p>'
+  +'<div class="meta mt">'+esc(j.city)+' • Posted: '+esc(j.posted)+' • ID: '+esc(j.id)+'</div></div>'
+  +'<a class="btn big" href="'+mailtoLink('Kaam karna hai: '+j.title+' ('+j.id+')',body)+'">Mai karunga</a>'
+  +'<p class="note center">Button dabate hi email khulegi. Apna naam aur contact likh ke bhej do - hum client se jod denge. Paisa seedha client se milega, site beech me nahi aati.</p>'
+  +'<div class="center mt"><a href="kaam.html">← Sab kaam</a></div>';
+}
+</script>
+</body>
+</html>

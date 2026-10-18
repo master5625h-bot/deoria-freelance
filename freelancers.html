@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Freelancers - DeoriaFreelance</title>
+<meta name="description" content="Deoria ke freelancers: video editing, design, typing. Profile dekho aur kaam do.">
+<link rel="canonical" href="https://master5625h-bot.github.io/deoria-freelance/freelancers.html">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="logo" href="index.html">Deoria<span>Freelance</span></a>
+<nav class="top"><a href="kaam.html">Kaam</a><a href="freelancers.html">Freelancers</a><a href="post.html">Kaam Daalo</a></nav>
+</div></header>
+<div class="wrap">
+<section>
+<h2 class="sec">Freelancers</h2>
+<div id="list"></div>
+<div class="card center">
+<b>Khud freelancer ho?</b><br>
+<a class="btn mt" href="join.html">Apna profile banao (free)</a>
+</div>
+</section>
+</div>
+<footer class="site">
+DeoriaFreelance • Contact: <a href="mailto:dheerajhj42@gmail.com">dheerajhj42@gmail.com</a>
+</footer>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.getElementById('list').innerHTML=FREELANCERS.map(freelancerCard).join('');
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Freelancer profile - DeoriaFreelance</title>
+<meta name="description" content="Freelancer ki profile, rate aur sample kaam dekho.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="logo" href="index.html">Deoria<span>Freelance</span></a>
+<nav class="top"><a href="kaam.html">Kaam</a><a href="freelancers.html">Freelancers</a><a href="post.html">Kaam Daalo</a></nav>
+</div></header>
+<div class="wrap">
+<section id="detail"></section>
+</div>
+<footer class="site">
+DeoriaFreelance • Contact: <a href="mailto:dheerajhj42@gmail.com">dheerajhj42@gmail.com</a>
+</footer>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+const id=new URLSearchParams(location.search).get('id');
+const f=FREELANCERS.find(x=>x.id===id);
+const box=document.getElementById('detail');
+if(!f){box.innerHTML='<div class="card">Profile nahi mila. <a href="freelancers.html">Sab freelancers</a></div>';}
+else{
+  document.title=f.name+' ('+f.skill+') - DeoriaFreelance';
+  const body='Namaste,\n\nMujhe '+f.name+' ('+f.skill+') se kaam karwana hai.\n\nKaam ki detail: \nMera budget: \nMera naam: \nMera WhatsApp ya email: \n';
+  box.innerHTML='<div class="card"><h3>'+esc(f.name)+' '+(f.sample?'<span class="tag amber">Sample</span>':'')+'</h3>'
+  +'<div class="meta"><span class="tag">'+esc(f.skill)+'</span></div>'
+  +'<p class="mt">'+esc(f.about)+'</p>'
+  +'<p class="mt"><span class="rate">'+esc(f.rate)+'</span> • '+esc(f.city)+'</p>'
+  +'<div class="meta mt">Sample kaam: '+f.samples.map(esc).join(' • ')+'</div></div>'
+  +'<a class="btn big" href="'+mailtoLink('Kaam dena hai: '+f.name+' ('+f.skill+')',body)+'">Is freelancer ko kaam do</a>'
+  +'<p class="note center">Email me kaam ki detail likho - hum freelancer se jod denge. Paisa seedha aap dono ke beech.</p>'
+  +'<div class="center mt"><a href="freelancers.html">← Sab freelancers</a></div>';
+}
+</script>
+</body>
+</html>

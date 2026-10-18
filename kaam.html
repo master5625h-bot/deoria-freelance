@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kaam dhundho - DeoriaFreelance</title>
+<meta name="description" content="Deoria me available freelance kaam: video editing, design, typing, form bharna, social media. Category chuno aur apply karo.">
+<link rel="canonical" href="https://master5625h-bot.github.io/deoria-freelance/kaam.html">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="logo" href="index.html">Deoria<span>Freelance</span></a>
+<nav class="top"><a href="kaam.html">Kaam</a><a href="freelancers.html">Freelancers</a><a href="post.html">Kaam Daalo</a></nav>
+</div></header>
+<div class="wrap">
+<section>
+<h2 class="sec">Sab kaam</h2>
+<div class="filters" id="filters"></div>
+<div id="jobs"></div>
+</section>
+</div>
+<footer class="site">
+DeoriaFreelance • Contact: <a href="mailto:dheerajhj42@gmail.com">dheerajhj42@gmail.com</a>
+</footer>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+const fbox=document.getElementById('filters'), jbox=document.getElementById('jobs');
+function render(cat){
+  fbox.innerHTML=CATEGORIES.map(c=>'<button class="'+(c===cat?'on':'')+'" onclick="render(\''+c+'\')">'+c+'</button>').join('');
+  const list=JOBS.filter(j=>cat==='Sab'||j.cat===cat);
+  jbox.innerHTML=list.length?list.map(jobCard).join(''):'<div class="card">Is category me abhi koi kaam nahi.</div>';
+}
+render('Sab');
+</script>
+</body>
+</html>
