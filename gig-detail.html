@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gig detail - DeoriaFreelance</title>
-<meta name="description" content="Gig ke packages dekho aur order karo.">
-<link rel="stylesheet" href="css/style.css?v=8">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="css/style.css?v=9">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body>
-<header class="site"><div class="wrap head1">
+<body><header class="site"><div class="wrap head1">
 <a class="logo" href="index.html">Deoria<span>Freelance</span></a>
 <div class="headbtns">
+<a class="langbtn" href="auth.html" style="text-decoration:none">👤</a>
 <button id="langToggle" class="langbtn" type="button">EN</button>
 <a class="btn ctabtn" href="post.html" data-i18n="nav.post">Kaam Daalo</a>
 </div>
@@ -41,6 +42,7 @@
 <a href="post.html" data-i18n="nav.post">Kaam daalo</a>
 <a href="gig-post.html" data-i18n="gig.post">Gig daalo</a>
 <a href="join.html" data-i18n="profile.make">Profile banao</a>
+<a href="privacy.html">Privacy</a>
 </div>
 <div>
 <h4 data-i18n="foot.contact">Contact</h4>
@@ -48,16 +50,14 @@
 </div>
 </div>
 <div class="bar" data-i18n="foot.bar">Paisa site ke through nahi jata - seedha client aur freelancer ke beech. &copy; 2026 DeoriaFreelance</div>
-</div></footer>
-<script src="js/i18n.js"></script>
+</div></footer><script src="js/i18n.js"></script>
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
+<script src="js/sb.js"></script>
 <script>
 const id=new URLSearchParams(location.search).get('id');
-const g=GIGS.find(x=>x.id===id);
 const box=document.getElementById('detail');
-if(!g){box.innerHTML='<div class="card">Gig nahi mila. <a href="gigs.html">Sab gigs</a></div>';}
-else{
+function drawGig(g){
   document.title=g.title+' - DeoriaFreelance';
   let packs='';
   g.packs.forEach(p=>{
@@ -72,8 +72,17 @@ else{
   +'<h2 class="sec" style="margin:16px 0 10px">'+T("gig.packs")+'</h2>'+packs
   +'<p class="note center">'+T("gig.note")+'</p>'
   +'<div class="center mt"><a href="gigs.html">'+T("gig.back")+'</a></div>';
+  applyLang();
 }
-applyLang();
+(async()=>{
+ let g=GIGS.find(x=>x.id===id);
+ if(!g && id && id.startsWith('sb-') && sbReady()){
+   const r=await fetchListingById(id);
+   if(r) g=liveToGig(r);
+ }
+ if(!g){box.innerHTML='<div class="card">Gig nahi mila. <a href="gigs.html">Sab gigs</a></div>';return;}
+ drawGig(g);
+})();
 </script>
 </body>
 </html>

@@ -6,12 +6,13 @@
 <title>Gigs - fixed price services - DeoriaFreelance</title>
 <meta name="description" content="DeoriaFreelance gigs: freelancer ki fixed-price services - reel editing, poster design, typing. Package chuno aur order karo.">
 <link rel="canonical" href="https://master5625h-bot.github.io/deoria-freelance/gigs.html">
-<link rel="stylesheet" href="css/style.css?v=8">
+<link rel="stylesheet" href="css/style.css?v=9">
 </head>
 <body>
 <header class="site"><div class="wrap head1">
 <a class="logo" href="index.html">Deoria<span>Freelance</span></a>
 <div class="headbtns">
+<a class="langbtn" href="auth.html" style="text-decoration:none">👤</a>
 <button id="langToggle" class="langbtn" type="button">EN</button>
 <a class="btn ctabtn" href="post.html" data-i18n="nav.post">Kaam Daalo</a>
 </div>
@@ -51,6 +52,7 @@
 <a href="post.html" data-i18n="nav.post">Kaam daalo</a>
 <a href="gig-post.html" data-i18n="gig.post">Gig daalo</a>
 <a href="join.html" data-i18n="profile.make">Profile banao</a>
+<a href="privacy.html">Privacy</a>
 </div>
 <div>
 <h4 data-i18n="foot.contact">Contact</h4>
@@ -62,6 +64,7 @@
 <script src="js/i18n.js"></script>
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
+<script src="js/sb.js"></script>
 <script>
 const fbox=document.getElementById('filters'), gbox=document.getElementById('gigs');
 function render(cat){
@@ -70,6 +73,7 @@ function render(cat){
   gbox.innerHTML=list.length?list.map(gigCard).join(''):'<div class="card">'+T("gigs.none")+'</div>';
 }
 render('Sab');
+(async()=>{ if(sbReady()){ const rows=await sbLiveListings('gig'); GIGS.push(...rows.map(liveToGig)); render('Sab'); } })();
 </script>
 </body>
 </html>

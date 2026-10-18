@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mera profile - DeoriaFreelance</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="css/style.css?v=9">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<header class="site"><div class="wrap head1">
+<a class="logo" href="index.html">Deoria<span>Freelance</span></a>
+<div class="headbtns">
+<a class="langbtn" href="auth.html" style="text-decoration:none">👤</a>
+<button id="langToggle" class="langbtn" type="button">EN</button>
+<a class="btn ctabtn" href="post.html" data-i18n="nav.post">Kaam Daalo</a>
+</div>
+</div>
+<nav class="top2"><div class="wrap navrow">
+<a href="kaam.html" data-i18n="nav.kaam">Kaam</a>
+<a href="gigs.html" data-i18n="nav.gigs">Gigs</a>
+<a href="freelancers.html" data-i18n="nav.fl">Freelancers</a>
+<a href="students.html" data-i18n="nav.students">Students</a>
+<a href="saved.html" data-i18n="nav.saved">♥ Saved</a>
+</div></nav>
+</header>
+<div class="wrap">
+<section>
+<h2 class="sec">Mera freelancer profile</h2>
+<p class="secsub">Nickname se dikhega, asli naam zaruri nahi. Login zaruri hai.</p>
+<div class="card" id="need" style="display:none">Pehle <a href="auth.html">login</a> karo.</div>
+<form class="post" id="f" style="display:none">
+<div class="field"><label>Nickname *</label><input name="nick" required></div>
+<div class="grid2">
+<div class="field"><label>Skill</label><select name="skill"><option>Video Editing</option><option>Design</option><option>Typing</option><option>Form Bharna</option><option>Social Media</option><option>Aur Kuch</option></select></div>
+<div class="field"><label>Rate</label><input name="rate" placeholder="₹299 / video"></div>
+</div>
+<div class="field"><label>Shehar</label><input name="city"></div>
+<div class="field"><label>Apne baare me</label><textarea name="about"></textarea></div>
+<div class="field"><label>Sample kaam</label><input name="samples"></div>
+<button class="btn big" type="submit">Save karo</button>
+<p class="note" id="msg"></p>
+</form>
+</section>
+</div>
+<footer class="site"><div class="wrap">
+<div class="cols">
+<div>
+<div class="flogo">Deoria<span>Freelance</span></div>
+<p data-i18n="foot.about">Deoria aur aas-paas ka apna freelance platform. Kaam daalo ya kaam karo - free, checked listings.</p>
+</div>
+<div>
+<h4 data-i18n="foot.pages">Pages</h4>
+<a href="kaam.html" data-i18n="fl.find">Kaam dhundho</a>
+<a href="gigs.html" data-i18n="nav.gigs">Gigs</a>
+<a href="freelancers.html" data-i18n="nav.fl">Freelancers</a>
+<a href="students.html" data-i18n="nav.students">Students</a>
+<a href="post.html" data-i18n="nav.post">Kaam daalo</a>
+<a href="gig-post.html" data-i18n="gig.post">Gig daalo</a>
+<a href="join.html" data-i18n="profile.make">Profile banao</a>
+<a href="privacy.html">Privacy</a>
+</div>
+<div>
+<h4 data-i18n="foot.contact">Contact</h4>
+<a href="mailto:dheerajhj42@gmail.com">dheerajhj42@gmail.com</a>
+</div>
+</div>
+<div class="bar" data-i18n="foot.bar">Paisa site ke through nahi jata - seedha client aur freelancer ke beech. &copy; 2026 DeoriaFreelance</div>
+</div></footer>
+<script src="js/i18n.js"></script>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/sb.js"></script>
+<script>
+async function init(){
+  const u=await sbUser();
+  if(!u){document.getElementById('need').style.display='block';return;}
+  document.getElementById('f').style.display='block';
+  const p=await sbMyProfile();
+  if(p){const f=document.getElementById('f');['nick','skill','rate','city','about','samples'].forEach(k=>{if(p[k]&&f.elements[k])f.elements[k].value=p[k];});}
+}
+document.getElementById('f').addEventListener('submit',async function(e){
+  e.preventDefault();
+  const d=new FormData(e.target);
+  const {error}=await sbSaveProfile({nick:d.get('nick'),skill:d.get('skill'),rate:d.get('rate'),city:d.get('city'),about:d.get('about'),samples:d.get('samples')});
+  document.getElementById('msg').textContent=error?('Problem: '+error.message):'Profile save ho gaya! Freelancers page pe dikhega.';
+});
+init();
+</script>
+</body>
+</html>

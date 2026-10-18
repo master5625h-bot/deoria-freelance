@@ -6,12 +6,13 @@
 <title>Gig daalo - DeoriaFreelance</title>
 <meta name="description" content="Apni fixed-price service (gig) DeoriaFreelance pe daalo. Hum check karke list karte hain.">
 <link rel="canonical" href="https://master5625h-bot.github.io/deoria-freelance/gig-post.html">
-<link rel="stylesheet" href="css/style.css?v=8">
+<link rel="stylesheet" href="css/style.css?v=9">
 </head>
 <body>
 <header class="site"><div class="wrap head1">
 <a class="logo" href="index.html">Deoria<span>Freelance</span></a>
 <div class="headbtns">
+<a class="langbtn" href="auth.html" style="text-decoration:none">👤</a>
 <button id="langToggle" class="langbtn" type="button">EN</button>
 <a class="btn ctabtn" href="post.html" data-i18n="nav.post">Kaam Daalo</a>
 </div>
@@ -42,6 +43,7 @@
 <div class="field"><label>Premium package (₹) + kya milega</label><input name="pp" placeholder="Jaise: 999 - 2 reels + thumbnail"></div>
 <div class="field"><label>Aapka nickname *</label><input name="nick" required placeholder="Jaise: EditorPro"></div>
 <div class="field"><label>Aapka contact (email ya WhatsApp number) *</label><input name="contact" required placeholder="Sirf hum tak pahunchega, public nahi hoga"></div>
+<div class="alert" id="done" style="display:none;background:#ecfdf5;border-color:#a7f3d0">Mil gaya! Automatic check ho ke jaldi site pe live ho jayega. Shak hua to hum contact karenge.</div>
 <button class="btn big" type="submit">Gig bhejo</button>
 <p class="note">* zaruri fields. Submit pe aapka email app khulega, bhej dein.</p>
 </form>
@@ -62,6 +64,7 @@
 <a href="post.html" data-i18n="nav.post">Kaam daalo</a>
 <a href="gig-post.html" data-i18n="gig.post">Gig daalo</a>
 <a href="join.html" data-i18n="profile.make">Profile banao</a>
+<a href="privacy.html">Privacy</a>
 </div>
 <div>
 <h4 data-i18n="foot.contact">Contact</h4>
@@ -73,11 +76,18 @@
 <script src="js/i18n.js"></script>
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
+<script src="js/sb.js"></script>
 <script>
-document.getElementById('f').addEventListener('submit',function(e){
+document.getElementById('f').addEventListener('submit',async function(e){
   e.preventDefault();
   const d=new FormData(e.target);
-  const body='Nayi gig (approval ke liye):\n\nTitle: '+d.get('title')+'\nCategory: '+d.get('cat')+'\nDelivery: '+d.get('delivery')+'\nDetail: '+d.get('desc')+'\n\nBasic: ₹'+d.get('pb')+' - '+d.get('db')+'\nStandard: '+(d.get('ps')||'-')+'\nPremium: '+(d.get('pp')||'-')+'\n\nNickname: '+d.get('nick')+'\nContact: '+d.get('contact')+'\n';
+  const note=document.getElementById('done');
+  if(sbReady()){
+    const payload={cat:d.get('cat'),delivery:d.get('delivery'),desc:d.get('desc'),by:d.get('nick'),pb:'₹'+d.get('pb')+' - '+d.get('db'),ps:d.get('ps')||'',pp:d.get('pp')||''};
+    const {error}=await sbSubmit('gig',d.get('title'),payload,d.get('contact'));
+    if(!error){note.style.display='block';e.target.reset();window.scrollTo(0,0);return;}
+  }
+  const body='Nayi gig:\n\nTitle: '+d.get('title')+'\nCategory: '+d.get('cat')+'\nDelivery: '+d.get('delivery')+'\nDetail: '+d.get('desc')+'\n\nBasic: ₹'+d.get('pb')+' - '+d.get('db')+'\nStandard: '+(d.get('ps')||'-')+'\nPremium: '+(d.get('pp')||'-')+'\n\nNickname: '+d.get('nick')+'\nContact: '+d.get('contact')+'\n';
   location.href=mailtoLink('Nayi gig: '+d.get('title'),body);
 });
 </script>

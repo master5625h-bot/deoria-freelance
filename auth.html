@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login - DeoriaFreelance</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="css/style.css?v=9">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<header class="site"><div class="wrap head1">
+<a class="logo" href="index.html">Deoria<span>Freelance</span></a>
+<div class="headbtns">
+<a class="langbtn" href="auth.html" style="text-decoration:none">👤</a>
+<button id="langToggle" class="langbtn" type="button">EN</button>
+<a class="btn ctabtn" href="post.html" data-i18n="nav.post">Kaam Daalo</a>
+</div>
+</div>
+<nav class="top2"><div class="wrap navrow">
+<a href="kaam.html" data-i18n="nav.kaam">Kaam</a>
+<a href="gigs.html" data-i18n="nav.gigs">Gigs</a>
+<a href="freelancers.html" data-i18n="nav.fl">Freelancers</a>
+<a href="students.html" data-i18n="nav.students">Students</a>
+<a href="saved.html" data-i18n="nav.saved">♥ Saved</a>
+</div></nav>
+</header>
+<div class="wrap">
+<section>
+<h2 class="sec">Login / Account</h2>
+<p class="secsub">Sirf email se - password ki zaroorat nahi. Email pe link aayega, use kholte hi login.</p>
+<div class="card" id="out">
+<label>Aapki email</label>
+<input type="email" id="email" placeholder="name@gmail.com">
+<button class="btn big mt" onclick="doLogin()">Login link bhejo</button>
+<p class="note" id="msg"></p>
+</div>
+<div class="card" id="in" style="display:none">
+<p>Logged in: <b id="ue"></b></p>
+<div class="grid2 mt">
+<a class="btn" href="profile.html">Mera profile</a>
+<a class="btn alt" href="inbox.html">Messages</a>
+</div>
+<button class="btn ghost big mt" onclick="sbSignOut()">Logout</button>
+</div>
+</section>
+</div>
+<footer class="site"><div class="wrap">
+<div class="cols">
+<div>
+<div class="flogo">Deoria<span>Freelance</span></div>
+<p data-i18n="foot.about">Deoria aur aas-paas ka apna freelance platform. Kaam daalo ya kaam karo - free, checked listings.</p>
+</div>
+<div>
+<h4 data-i18n="foot.pages">Pages</h4>
+<a href="kaam.html" data-i18n="fl.find">Kaam dhundho</a>
+<a href="gigs.html" data-i18n="nav.gigs">Gigs</a>
+<a href="freelancers.html" data-i18n="nav.fl">Freelancers</a>
+<a href="students.html" data-i18n="nav.students">Students</a>
+<a href="post.html" data-i18n="nav.post">Kaam daalo</a>
+<a href="gig-post.html" data-i18n="gig.post">Gig daalo</a>
+<a href="join.html" data-i18n="profile.make">Profile banao</a>
+<a href="privacy.html">Privacy</a>
+</div>
+<div>
+<h4 data-i18n="foot.contact">Contact</h4>
+<a href="mailto:dheerajhj42@gmail.com">dheerajhj42@gmail.com</a>
+</div>
+</div>
+<div class="bar" data-i18n="foot.bar">Paisa site ke through nahi jata - seedha client aur freelancer ke beech. &copy; 2026 DeoriaFreelance</div>
+</div></footer>
+<script src="js/i18n.js"></script>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/sb.js"></script>
+<script>
+async function init(){
+  const u=await sbUser();
+  if(u){document.getElementById('out').style.display='none';document.getElementById('in').style.display='block';document.getElementById('ue').textContent=u.email;}
+}
+async function doLogin(){
+  const e=document.getElementById('email').value.trim();
+  const m=document.getElementById('msg');
+  if(!e||!e.includes('@')){m.textContent='Sahi email likho';return;}
+  if(!sbReady()){m.textContent='Backend abhi jud raha hai, thodi der baad try karo.';return;}
+  const {error}=await sbSignIn(e);
+  m.textContent=error?('Problem: '+error.message):'Link bhej diya! Apni email kholo aur link dabao.';
+}
+init();
+</script>
+</body>
+</html>

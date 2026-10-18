@@ -39,3 +39,13 @@ function gigCard(g){
   +sBadge(g.sample)
   +esc(g.by)+' '+vBadge(g.verified)+' • '+T("deliv")+' '+esc(g.delivery)+'</div></a>';
 }
+/* Live (backend) listings -> card objects */
+function liveToJob(r){const p=r.payload||{};return {id:'sb-'+r.id,title:r.title,cat:p.cat||'Aur Kuch',budget:p.budget||'',city:p.city||'',posted:new Date(r.created_at).toISOString().slice(0,10),desc:p.desc||'',fresher:p.fresher==='yes'};}
+function liveToGig(r){const p=r.payload||{};const packs=[];if(p.pb)packs.push({n:'Basic',p:(p.pb.split(' - ')[0]||'').replace(/[^\d]/g,''),d:p.pb.split(' - ').slice(1).join(' - ')||''});if(p.ps)packs.push({n:'Standard',p:(p.ps.split(' - ')[0]||'').replace(/[^\d]/g,''),d:p.ps.split(' - ').slice(1).join(' - ')||''});if(p.pp)packs.push({n:'Premium',p:(p.pp.split(' - ')[0]||'').replace(/[^\d]/g,''),d:p.pp.split(' - ').slice(1).join(' - ')||''});return {id:'sb-'+r.id,title:r.title,by:p.by||'Freelancer',cat:p.cat||'Aur Kuch',desc:p.desc||'',delivery:p.delivery||'',packs:packs.length?packs:[{n:'Basic',p:'-',d:p.desc||''}]};}
+function liveToFl(r){const p=r.payload||{};return {id:'sb-'+r.id,name:p.nick||r.title,skill:p.skill||'',rate:p.rate||'',city:p.city||'',about:p.about||'',samples:(p.samples||'').split(',').map(x=>x.trim()).filter(Boolean)};}
+function profileToFl(p){return {id:p.id,name:p.nick,skill:p.skill||'',rate:p.rate||'',city:p.city||'',about:p.about||'',samples:(p.samples||'').split(',').map(x=>x.trim()).filter(Boolean),member:true};}
+async function fetchListingById(id){
+  const uuid=id.slice(3);
+  const {data,error}=await _sb.from('public_listings').select('*').eq('id',uuid).maybeSingle();
+  return error?null:data;
+}

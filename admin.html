@@ -5,12 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Owner Panel - DeoriaFreelance</title>
 <meta name="robots" content="noindex">
-<link rel="stylesheet" href="css/style.css?v=8">
+<link rel="stylesheet" href="css/style.css?v=9">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body>
-<header class="site"><div class="wrap head1">
+<body><header class="site"><div class="wrap head1">
 <a class="logo" href="index.html">Deoria<span>Freelance</span></a>
 <div class="headbtns">
+<a class="langbtn" href="auth.html" style="text-decoration:none">👤</a>
 <button id="langToggle" class="langbtn" type="button">EN</button>
 <a class="btn ctabtn" href="post.html" data-i18n="nav.post">Kaam Daalo</a>
 </div>
@@ -26,57 +27,13 @@
 <div class="wrap">
 <section>
 <h2 class="sec" data-i18n="admin.h">Owner Panel</h2>
-<p class="secsub" data-i18n="admin.sub">Sirf site owner ke liye</p>
-<div class="card gate" id="gate">
-<label data-i18n="admin.gate">Owner code daalo</label>
-<input type="password" id="code" inputmode="text" autocomplete="off">
-<button class="btn big mt" onclick="tryCode()" data-i18n="admin.enter">Kholo</button>
-<p class="note" id="err" style="color:#dc2626;display:none" data-i18n="admin.wrong">Galat code</p>
+<p class="secsub" data-i18n="admin.sub">Sirf site owner ke liye - owner email se login</p>
+<div class="card" id="needlogin">
+<p>Owner email se <a href="auth.html">login</a> karo, phir ye page kholo.</p>
 </div>
-<div class="adminsec" id="panel">
-<div class="alert" data-i18n="admin.note1">Email pe aayi submission yahan bharo - submit karte hi Instinct ko message chala jayega aur listing site pe aa jayegi. Reject karna ho to email ignore karo; bina approve ke kuch list nahi hota.</div>
-
-<h2 class="sec" style="font-size:1.05rem" data-i18n="admin.addkaam">Kaam add karo</h2>
-<form class="post" data-kind="KAAM">
-<div class="field"><label>Title *</label><input name="title" required></div>
-<div class="grid2">
-<div class="field"><label>Category *</label><select name="cat"><option>Video Editing</option><option>Design</option><option>Typing</option><option>Form Bharna</option><option>Social Media</option><option>Aur Kuch</option></select></div>
-<div class="field"><label>Budget (₹) *</label><input name="budget" required inputmode="numeric"></div>
-</div>
-<div class="field"><label>Shehar *</label><input name="city" required></div>
-<div class="field"><label>Detail *</label><textarea name="desc" required></textarea></div>
-<div class="field"><label>Fresher-friendly?</label><select name="fresher"><option value="no">No</option><option value="yes">Yes</option></select></div>
-<button class="btn big" type="submit" data-i18n="admin.send">Instinct ko bhejo (listing ke liye)</button>
-</form>
-
-<h2 class="sec" style="font-size:1.05rem;margin-top:22px" data-i18n="admin.addgig">Gig add karo</h2>
-<form class="post" data-kind="GIG">
-<div class="field"><label>Gig title *</label><input name="title" required></div>
-<div class="grid2">
-<div class="field"><label>Category *</label><select name="cat"><option>Video Editing</option><option>Design</option><option>Typing</option><option>Form Bharna</option><option>Social Media</option><option>Aur Kuch</option></select></div>
-<div class="field"><label>Delivery *</label><input name="delivery" required placeholder="2 din"></div>
-</div>
-<div class="field"><label>Freelancer nickname *</label><input name="by" required></div>
-<div class="field"><label>Detail *</label><textarea name="desc" required></textarea></div>
-<div class="field"><label>Basic (₹ + kya milega) *</label><input name="pb" required placeholder="299 - 1 reel, simple cuts"></div>
-<div class="field"><label>Standard</label><input name="ps" placeholder="599 - reel + captions"></div>
-<div class="field"><label>Premium</label><input name="pp" placeholder="999 - 2 reels + thumbnail"></div>
-<button class="btn big" type="submit" data-i18n="admin.send">Instinct ko bhejo (listing ke liye)</button>
-</form>
-
-<h2 class="sec" style="font-size:1.05rem;margin-top:22px" data-i18n="admin.addfl">Freelancer add karo</h2>
-<form class="post" data-kind="FREELANCER">
-<div class="field"><label>Nickname *</label><input name="nick" required></div>
-<div class="grid2">
-<div class="field"><label>Skill *</label><select name="skill"><option>Video Editing</option><option>Design</option><option>Typing</option><option>Form Bharna</option><option>Social Media</option><option>Aur Kuch</option></select></div>
-<div class="field"><label>Rate *</label><input name="rate" required placeholder="₹299 / video"></div>
-</div>
-<div class="field"><label>Shehar *</label><input name="city" required></div>
-<div class="field"><label>About *</label><textarea name="about" required></textarea></div>
-<div class="field"><label>Samples</label><input name="samples" placeholder="reels, posters"></div>
-<div class="field"><label>Verified badge?</label><select name="verified"><option value="no">No</option><option value="yes">Yes</option></select></div>
-<button class="btn big" type="submit" data-i18n="admin.send">Instinct ko bhejo (listing ke liye)</button>
-</form>
+<div id="panel" style="display:none">
+<div class="alert">Flagged submissions yahan dikhti hain (auto-check me shak wali). <b>Approve</b> = site pe live, <b>Reject</b> = hata do. Saaf submissions apne aap live ho jati hain.</div>
+<div id="queue"></div>
 </div>
 </section>
 </div>
@@ -95,6 +52,7 @@
 <a href="post.html" data-i18n="nav.post">Kaam daalo</a>
 <a href="gig-post.html" data-i18n="gig.post">Gig daalo</a>
 <a href="join.html" data-i18n="profile.make">Profile banao</a>
+<a href="privacy.html">Privacy</a>
 </div>
 <div>
 <h4 data-i18n="foot.contact">Contact</h4>
@@ -102,32 +60,38 @@
 </div>
 </div>
 <div class="bar" data-i18n="foot.bar">Paisa site ke through nahi jata - seedha client aur freelancer ke beech. &copy; 2026 DeoriaFreelance</div>
-</div></footer>
-<script src="js/i18n.js"></script>
+</div></footer><script src="js/i18n.js"></script>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/sb.js"></script>
 <script>
-const ADMIN_CODE='deoria123';
-const INSTINCT_MAIL='0978nb@mail.instinct.com';
-function tryCode(){
- const v=document.getElementById('code').value.trim();
- if(v===ADMIN_CODE){
-   sessionStorage.setItem('df_admin','1');
-   document.getElementById('gate').style.display='none';
-   document.getElementById('panel').classList.add('open');
- }else{document.getElementById('err').style.display='block';}
+function flagCard(r){
+  const p=r.payload||{};
+  let detail='';
+  for(const k in p){if(p[k])detail+='<div class="meta">'+esc(k)+': '+esc(String(p[k]))+'</div>';}
+  return '<div class="card"><div class="job-head"><h3>'+esc(r.title)+'</h3><span class="tag amber">'+esc(r.type)+'</span></div>'
+  +'<div class="meta">Flags: <b style="color:#dc2626">'+esc((r.flags||[]).join(', '))+'</b> • '+new Date(r.created_at).toLocaleString('hi-IN')+'</div>'
+  +detail
+  +'<div class="meta mt">Contact (private): '+esc(r.contact_email||'-')+'</div>'
+  +'<div class="grid2 mt"><button class="btn" data-id="'+r.id+'" onclick="decide(this.dataset.id,\'live\')">Approve</button>'
+  +'<button class="btn alt" data-id="'+r.id+'" onclick="decide(this.dataset.id,\'rejected\')">Reject</button></div></div>';
 }
-if(sessionStorage.getItem('df_admin')==='1'){
- document.getElementById('gate').style.display='none';
- document.getElementById('panel').classList.add('open');
+async function decide(id,status){
+  const {error}=await sbSetStatus(id,status);
+  if(error){alert('Problem: '+error.message);return;}
+  load();
 }
-document.querySelectorAll('form.post').forEach(f=>{
- f.addEventListener('submit',function(e){
-  e.preventDefault();
-  const d=new FormData(f);const kind=f.dataset.kind;
-  let body='';
-  for(const [k,v] of d.entries()){body+=k+': '+v+'\n';}
-  location.href='mailto:'+INSTINCT_MAIL+'?subject='+encodeURIComponent('DF-ADD-'+kind)+'&body='+encodeURIComponent(body);
- });
-});
+async function load(){
+  const rows=await sbFlagged();
+  document.getElementById('queue').innerHTML=rows.length?rows.map(flagCard).join(''):'<div class="card meta">Queue khali hai. Sab saaf ✅</div>';
+}
+(async()=>{
+  const owner=await sbIsOwner();
+  if(!owner){return;}
+  document.getElementById('needlogin').style.display='none';
+  document.getElementById('panel').style.display='block';
+  load();
+})();
 </script>
 </body>
 </html>

@@ -6,12 +6,13 @@
 <title>Freelancer profile banao - DeoriaFreelance</title>
 <meta name="description" content="DeoriaFreelance pe apna free freelancer profile banao aur kaam pao. Asli naam zaruri nahi, nickname chalega.">
 <link rel="canonical" href="https://master5625h-bot.github.io/deoria-freelance/join.html">
-<link rel="stylesheet" href="css/style.css?v=8">
+<link rel="stylesheet" href="css/style.css?v=9">
 </head>
 <body>
 <header class="site"><div class="wrap head1">
 <a class="logo" href="index.html">Deoria<span>Freelance</span></a>
 <div class="headbtns">
+<a class="langbtn" href="auth.html" style="text-decoration:none">👤</a>
 <button id="langToggle" class="langbtn" type="button">EN</button>
 <a class="btn ctabtn" href="post.html" data-i18n="nav.post">Kaam Daalo</a>
 </div>
@@ -38,6 +39,7 @@
 <div class="field"><label>Apne baare me (1-2 line) *</label><textarea name="about" required placeholder="Kya kaam karte ho, kaun se tool use karte ho"></textarea></div>
 <div class="field"><label>Sample kaam (link ya naam)</label><input name="samples" placeholder="Jaise: Instagram reels, wedding teaser"></div>
 <div class="field"><label>Aapka contact (email ya WhatsApp number) *</label><input name="contact" required placeholder="Sirf hum tak pahunchega, public nahi hoga"></div>
+<div class="alert" id="done" style="display:none;background:#ecfdf5;border-color:#a7f3d0">Mil gaya! Automatic check ho ke jaldi site pe live ho jayega. Shak hua to hum contact karenge.</div>
 <button class="btn big" type="submit">Profile bhejo</button>
 <p class="note">* zaruri fields. Submit pe aapka email app khulega, bhej dein.</p>
 </form>
@@ -58,6 +60,7 @@
 <a href="post.html" data-i18n="nav.post">Kaam daalo</a>
 <a href="gig-post.html" data-i18n="gig.post">Gig daalo</a>
 <a href="join.html" data-i18n="profile.make">Profile banao</a>
+<a href="privacy.html">Privacy</a>
 </div>
 <div>
 <h4 data-i18n="foot.contact">Contact</h4>
@@ -69,11 +72,18 @@
 <script src="js/i18n.js"></script>
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
+<script src="js/sb.js"></script>
 <script>
-document.getElementById('f').addEventListener('submit',function(e){
+document.getElementById('f').addEventListener('submit',async function(e){
   e.preventDefault();
   const d=new FormData(e.target);
-  const body='Naya freelancer profile (approval ke liye):\n\nNickname: '+d.get('nick')+'\nSkill: '+d.get('skill')+'\nRate: '+d.get('rate')+'\nShehar: '+d.get('city')+'\nAbout: '+d.get('about')+'\nSamples: '+d.get('samples')+'\n\nContact: '+d.get('contact')+'\n';
+  const note=document.getElementById('done');
+  if(sbReady()){
+    const payload={nick:d.get('nick'),skill:d.get('skill'),rate:d.get('rate'),city:d.get('city'),about:d.get('about'),samples:d.get('samples')};
+    const {error}=await sbSubmit('freelancer',d.get('nick'),payload,d.get('contact'));
+    if(!error){note.style.display='block';e.target.reset();window.scrollTo(0,0);return;}
+  }
+  const body='Naya freelancer profile:\n\nNickname: '+d.get('nick')+'\nSkill: '+d.get('skill')+'\nRate: '+d.get('rate')+'\nShehar: '+d.get('city')+'\nAbout: '+d.get('about')+'\nSamples: '+d.get('samples')+'\n\nContact: '+d.get('contact')+'\n';
   location.href=mailtoLink('Naya freelancer profile: '+d.get('nick'),body);
 });
 </script>

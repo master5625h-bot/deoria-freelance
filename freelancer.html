@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Freelancer profile - DeoriaFreelance</title>
-<meta name="description" content="Freelancer ki profile, rate aur sample kaam dekho.">
-<link rel="stylesheet" href="css/style.css?v=8">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="css/style.css?v=9">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body>
-<header class="site"><div class="wrap head1">
+<body><header class="site"><div class="wrap head1">
 <a class="logo" href="index.html">Deoria<span>Freelance</span></a>
 <div class="headbtns">
+<a class="langbtn" href="auth.html" style="text-decoration:none">👤</a>
 <button id="langToggle" class="langbtn" type="button">EN</button>
 <a class="btn ctabtn" href="post.html" data-i18n="nav.post">Kaam Daalo</a>
 </div>
@@ -25,6 +26,30 @@
 </header>
 <div class="wrap">
 <section id="detail"></section>
+<section id="ratesec" style="display:none;padding-top:0">
+<h2 class="sec" style="font-size:1.1rem">Ratings & reviews</h2>
+<div id="rsummary" class="meta" style="margin-bottom:10px"></div>
+<div id="rlist"></div>
+<div class="card" id="rformbox" style="display:none">
+<label>Rating</label>
+<select id="rstars"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select>
+<label class="mt">Review (optional)</label>
+<textarea id="rcomment" placeholder="Kaisa raha kaam?"></textarea>
+<label class="mt">Tumhara nickname</label>
+<input id="rnick">
+<button class="btn big mt" onclick="sendRating()">Review bhejo</button>
+<p class="note" id="rmsg"></p>
+</div>
+<div class="card" id="rlogin" style="display:none">Review ya message ke liye <a href="auth.html">login</a> karo.</div>
+<div class="card" id="msgbox" style="display:none">
+<label>Message bhejo (private)</label>
+<textarea id="msgbody" placeholder="Kaam ke baare me poochho..."></textarea>
+<label class="mt">Tumhara nickname</label>
+<input id="msgnick">
+<button class="btn big mt" onclick="sendMsg()">Message bhejo</button>
+<p class="note" id="msgmsg"></p>
+</div>
+</section>
 </div>
 <footer class="site"><div class="wrap">
 <div class="cols">
@@ -41,6 +66,7 @@
 <a href="post.html" data-i18n="nav.post">Kaam daalo</a>
 <a href="gig-post.html" data-i18n="gig.post">Gig daalo</a>
 <a href="join.html" data-i18n="profile.make">Profile banao</a>
+<a href="privacy.html">Privacy</a>
 </div>
 <div>
 <h4 data-i18n="foot.contact">Contact</h4>
@@ -48,28 +74,63 @@
 </div>
 </div>
 <div class="bar" data-i18n="foot.bar">Paisa site ke through nahi jata - seedha client aur freelancer ke beech. &copy; 2026 DeoriaFreelance</div>
-</div></footer>
-<script src="js/i18n.js"></script>
+</div></footer><script src="js/i18n.js"></script>
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
+<script src="js/sb.js"></script>
 <script>
 const id=new URLSearchParams(location.search).get('id');
-const f=FREELANCERS.find(x=>x.id===id);
 const box=document.getElementById('detail');
-if(!f){box.innerHTML='<div class="card">Profile nahi mila. <a href="freelancers.html">Sab freelancers</a></div>';}
-else{
-  document.title=f.name+' ('+f.skill+') - DeoriaFreelance';
-  const body='Namaste,\n\nMujhe '+f.name+' ('+f.skill+') se kaam karwana hai.\n\nKaam ki detail: \nMera budget: \nMera naam: \nMera WhatsApp ya email: \n';
-  box.innerHTML='<div class="card"><h3>'+esc(f.name)+' '+vBadge(f.verified)+sBadge(f.sample)+'</h3>'
-  +'<div class="meta"><span class="tag">'+esc(f.skill)+'</span></div>'
-  +'<p class="mt">'+esc(f.about)+'</p>'
-  +'<p class="mt"><span class="rate">'+esc(f.rate)+'</span> • '+esc(f.city)+'</p>'
-  +'<div class="meta mt">Sample kaam: '+f.samples.map(esc).join(' • ')+'</div></div>'
-  +'<a class="btn big" href="'+mailtoLink('Kaam dena hai: '+f.name+' ('+f.skill+')',body)+'">'+T("fl.hire")+'</a>'
+let target=id, isRealProfile=false, profileOwner=null;
+function stars(n){return '★'.repeat(n)+'☆'.repeat(5-n)}
+async function draw(f){
+  document.title=f.name+' ('+(f.skill||'')+') - DeoriaFreelance';
+  const body='Namaste,\n\nMujhe '+f.name+' ('+(f.skill||'')+') se kaam karwana hai.\n\nKaam ki detail: \nMera budget: \nMera naam: \nMera WhatsApp ya email: \n';
+  box.innerHTML='<div class="card"><h3>'+esc(f.name)+' '+vBadge(f.verified)+sBadge(f.sample)+(f.member?'<span class="tag green">Member</span>':'')+'</h3>'
+  +'<div class="meta"><span class="tag">'+esc(f.skill||'')+'</span></div>'
+  +'<p class="mt">'+esc(f.about||'')+'</p>'
+  +'<p class="mt"><span class="rate">'+esc(f.rate||'')+'</span>'+(f.city?' • '+esc(f.city):'')+'</p>'
+  +((f.samples&&f.samples.length)?'<div class="meta mt">Sample kaam: '+f.samples.map(esc).join(' • ')+'</div>':'')+'</div>'
+  +'<a class="btn big" href="'+mailtoLink('Kaam dena hai: '+f.name+' ('+(f.skill||'')+')',body)+'">'+T("fl.hire")+'</a>'
   +'<p class="note center">'+T("fl.note")+'</p>'
   +'<div class="center mt"><a href="freelancers.html">'+T("fl.back")+'</a></div>';
+  applyLang();
+  // ratings
+  document.getElementById('ratesec').style.display='block';
+  const r=await sbRatings(target);
+  document.getElementById('rsummary').innerHTML=r.count?('<span style="color:#f59e0b;font-size:1.1rem">'+stars(Math.round(r.avg))+'</span> '+r.avg+' ('+r.count+' reviews)'):'Abhi koi review nahi.';
+  document.getElementById('rlist').innerHTML=r.list.map(x=>'<div class="card"><span style="color:#f59e0b">'+stars(x.stars)+'</span> <b>'+esc(x.nick||'User')+'</b><div class="meta">'+esc(x.comment||'')+'</div></div>').join('');
+  const u=await sbUser();
+  if(u){document.getElementById('rformbox').style.display='block';
+    if(isRealProfile&&profileOwner&&profileOwner!==u.id) document.getElementById('msgbox').style.display='block';
+  } else document.getElementById('rlogin').style.display='block';
 }
-applyLang();
+async function sendRating(){
+  const m=document.getElementById('rmsg');
+  const {error}=await sbAddRating(target,parseInt(document.getElementById('rstars').value),document.getElementById('rcomment').value,document.getElementById('rnick').value);
+  m.textContent=error?('Problem: '+(error.message||error)):'Review bhej diya! Check ho ke dikhega.';
+  if(!error)setTimeout(()=>location.reload(),1200);
+}
+async function sendMsg(){
+  const m=document.getElementById('msgmsg');
+  const {error}=await sbSendMessage(profileOwner,document.getElementById('msgnick').value,document.getElementById('msgbody').value);
+  m.textContent=error?('Problem: '+(error.message||error)):'Message chala gaya!';
+  if(!error)document.getElementById('msgbody').value='';
+}
+(async()=>{
+ let f=FREELANCERS.find(x=>x.id===id);
+ if(!f && sbReady()){
+   if(id && id.startsWith('sb-')){
+     const r=await fetchListingById(id);
+     if(r) f=liveToFl(r);
+   } else if(id && id.length>20){
+     const {data}=await _sb.from('profiles').select('*').eq('id',id).maybeSingle();
+     if(data){f=profileToFl(data);isRealProfile=true;profileOwner=data.id;}
+   }
+ }
+ if(!f){box.innerHTML='<div class="card">Profile nahi mila. <a href="freelancers.html">Sab freelancers</a></div>';return;}
+ draw(f);
+})();
 </script>
 </body>
 </html>

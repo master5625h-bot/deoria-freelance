@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kaam detail - DeoriaFreelance</title>
-<meta name="description" content="Kaam ki poori detail dekho aur Mai karunga dabao.">
-<link rel="stylesheet" href="css/style.css?v=8">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="css/style.css?v=9">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body>
-<header class="site"><div class="wrap head1">
+<body><header class="site"><div class="wrap head1">
 <a class="logo" href="index.html">Deoria<span>Freelance</span></a>
 <div class="headbtns">
+<a class="langbtn" href="auth.html" style="text-decoration:none">👤</a>
 <button id="langToggle" class="langbtn" type="button">EN</button>
 <a class="btn ctabtn" href="post.html" data-i18n="nav.post">Kaam Daalo</a>
 </div>
@@ -41,6 +42,7 @@
 <a href="post.html" data-i18n="nav.post">Kaam daalo</a>
 <a href="gig-post.html" data-i18n="gig.post">Gig daalo</a>
 <a href="join.html" data-i18n="profile.make">Profile banao</a>
+<a href="privacy.html">Privacy</a>
 </div>
 <div>
 <h4 data-i18n="foot.contact">Contact</h4>
@@ -48,16 +50,14 @@
 </div>
 </div>
 <div class="bar" data-i18n="foot.bar">Paisa site ke through nahi jata - seedha client aur freelancer ke beech. &copy; 2026 DeoriaFreelance</div>
-</div></footer>
-<script src="js/i18n.js"></script>
+</div></footer><script src="js/i18n.js"></script>
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
+<script src="js/sb.js"></script>
 <script>
 const id=new URLSearchParams(location.search).get('id');
-const j=JOBS.find(x=>x.id===id);
 const box=document.getElementById('detail');
-if(!j){box.innerHTML='<div class="card">Kaam nahi mila. <a href="kaam.html">Sab kaam dekho</a></div>';}
-else{
+function drawJob(j){
   document.title=j.title+' - DeoriaFreelance';
   const body='Namaste,\n\nMujhe ye kaam karna hai:\nKaam: '+j.title+' ('+j.id+')\nBudget: ₹'+j.budget+'\n\nMera naam: \nMera WhatsApp ya email: \nMera experience / sample kaam: \n';
   box.innerHTML='<div class="card"><h3>'+esc(j.title)+'</h3>'
@@ -68,8 +68,17 @@ else{
   +'<a class="btn big" href="'+mailtoLink('Kaam karna hai: '+j.title+' ('+j.id+')',body)+'">'+T("detail.iwill")+'</a>'
   +'<p class="note center">'+T("detail.note")+'</p>'
   +'<div class="center mt"><a href="kaam.html">'+T("detail.back")+'</a></div>';
+  applyLang();
 }
-applyLang();
+(async()=>{
+ let j=JOBS.find(x=>x.id===id);
+ if(!j && id && id.startsWith('sb-') && sbReady()){
+   const r=await fetchListingById(id);
+   if(r) j=liveToJob(r);
+ }
+ if(!j){box.innerHTML='<div class="card">Kaam nahi mila. <a href="kaam.html">Sab kaam</a></div>';return;}
+ drawJob(j);
+})();
 </script>
 </body>
 </html>
