@@ -128,3 +128,4 @@ footer.site .bar{border-top:1px solid rgba(255,255,255,.12);padding-top:16px;tex
 @media(max-width:480px){.grid2{grid-template-columns:1fr}}
 .center{text-align:center}
 .mt{margin-top:14px}
+nav.top a{white-space:nowrap}
