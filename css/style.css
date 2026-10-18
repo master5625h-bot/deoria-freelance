@@ -44,3 +44,4 @@ footer.site a{color:#cbd5e1}
 .center{text-align:center}
 .mt{margin-top:14px}
 .rate{font-weight:700;color:var(--brand2)}
+@media(max-width:480px){.logo{font-size:1.05rem}nav.top a{margin-left:9px;font-size:.82rem}}
