@@ -5,13 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gig detail - DeoriaFreelance</title>
 <meta name="description" content="Gig ke packages dekho aur order karo.">
-<link rel="stylesheet" href="css/style.css?v=6">
+<link rel="stylesheet" href="css/style.css?v=7">
 </head>
 <body>
-<header class="site"><div class="wrap">
+<header class="site"><div class="wrap head1">
 <a class="logo" href="index.html">Deoria<span>Freelance</span></a>
-<nav class="top"><a href="kaam.html">Kaam</a><a href="gigs.html">Gigs</a><a href="freelancers.html">Freelancers</a><a class="cta" href="post.html">Kaam Daalo</a></nav>
-</div></header>
+<div class="headbtns">
+<button id="langToggle" class="langbtn" type="button">EN</button>
+<a class="btn ctabtn" href="post.html" data-i18n="nav.post">Kaam Daalo</a>
+</div>
+</div>
+<nav class="top2"><div class="wrap navrow">
+<a href="kaam.html" data-i18n="nav.kaam">Kaam</a>
+<a href="gigs.html" data-i18n="nav.gigs">Gigs</a>
+<a href="freelancers.html" data-i18n="nav.fl">Freelancers</a>
+<a href="students.html" data-i18n="nav.students">Students</a>
+<a href="saved.html" data-i18n="nav.saved">♥ Saved</a>
+</div></nav>
+</header>
 <div class="wrap">
 <section id="detail"></section>
 </div>
@@ -19,23 +30,26 @@
 <div class="cols">
 <div>
 <div class="flogo">Deoria<span>Freelance</span></div>
-<p>Deoria aur aas-paas ka apna freelance platform. Kaam daalo ya kaam karo - free, checked listings.</p>
+<p data-i18n="foot.about">Deoria aur aas-paas ka apna freelance platform. Kaam daalo ya kaam karo - free, checked listings.</p>
 </div>
 <div>
-<h4>Pages</h4>
-<a href="kaam.html">Kaam dhundho</a>
-<a href="gigs.html">Gigs</a>
-<a href="freelancers.html">Freelancers</a>
-<a href="post.html">Kaam daalo</a>
-<a href="join.html">Profile banao</a>
+<h4 data-i18n="foot.pages">Pages</h4>
+<a href="kaam.html" data-i18n="fl.find">Kaam dhundho</a>
+<a href="gigs.html" data-i18n="nav.gigs">Gigs</a>
+<a href="freelancers.html" data-i18n="nav.fl">Freelancers</a>
+<a href="students.html" data-i18n="nav.students">Students</a>
+<a href="post.html" data-i18n="nav.post">Kaam daalo</a>
+<a href="gig-post.html" data-i18n="gig.post">Gig daalo</a>
+<a href="join.html" data-i18n="profile.make">Profile banao</a>
 </div>
 <div>
-<h4>Contact</h4>
+<h4 data-i18n="foot.contact">Contact</h4>
 <a href="mailto:dheerajhj42@gmail.com">dheerajhj42@gmail.com</a>
 </div>
 </div>
-<div class="bar">Paisa site ke through nahi jata - seedha client aur freelancer ke beech. &copy; 2026 DeoriaFreelance</div>
+<div class="bar" data-i18n="foot.bar">Paisa site ke through nahi jata - seedha client aur freelancer ke beech. &copy; 2026 DeoriaFreelance</div>
 </div></footer>
+<script src="js/i18n.js"></script>
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
 <script>
@@ -50,15 +64,16 @@ else{
     const body='Namaste,\n\nMujhe ye gig order karni hai:\nGig: '+g.title+' ('+g.id+')\nPackage: '+p.n+' (₹'+p.p+')\nFreelancer: '+g.by+'\n\nKaam ki detail / files ke baare me: \nMera naam: \nMera WhatsApp ya email: \n';
     packs+='<div class="card" style="margin-bottom:10px"><div class="job-head"><h3 style="font-size:1rem">'+esc(p.n)+'</h3><span class="job-budget">₹'+esc(p.p)+'</span></div>'
     +'<div class="snip">'+esc(p.d)+'</div>'
-    +'<a class="btn big" style="padding:12px" href="'+mailtoLink('Order: '+g.title+' - '+p.n+' (₹'+p.p+')',body)+'">'+esc(p.n)+' order karo</a></div>';
+    +'<a class="btn big" style="padding:12px" href="'+mailtoLink('Order: '+g.title+' - '+p.n+' (₹'+p.p+')',body)+'">'+esc(p.n)+' '+T("gig.order")+'</a></div>';
   });
-  box.innerHTML='<div class="card"><div class="job-head"><h3>'+esc(g.title)+'</h3>'+(g.sample?'<span class="tag amber">Sample</span>':'')+'</div>'
-  +'<div class="meta"><span class="tag">'+esc(g.cat)+'</span>'+esc(g.by)+' • Delivery: '+esc(g.delivery)+'</div>'
+  box.innerHTML='<div class="card"><div class="job-head"><h3>'+esc(g.title)+'</h3>'+sBadge(g.sample)+'</div>'
+  +'<div class="meta"><span class="tag">'+esc(g.cat)+'</span>'+esc(g.by)+' '+vBadge(g.verified)+' • '+T("deliv")+' '+esc(g.delivery)+'</div>'
   +'<p class="mt">'+esc(g.desc)+'</p></div>'
-  +'<h2 class="sec" style="margin:16px 0 10px">Package chuno</h2>'+packs
-  +'<p class="note center">Order dabate hi email khulegi. Detail likh ke bhej do - hum freelancer se jod denge. Paisa seedha freelancer ko milega, site beech me nahi aati.</p>'
-  +'<div class="center mt"><a href="gigs.html">← Sab gigs</a></div>';
+  +'<h2 class="sec" style="margin:16px 0 10px">'+T("gig.packs")+'</h2>'+packs
+  +'<p class="note center">'+T("gig.note")+'</p>'
+  +'<div class="center mt"><a href="gigs.html">'+T("gig.back")+'</a></div>';
 }
+applyLang();
 </script>
 </body>
 </html>

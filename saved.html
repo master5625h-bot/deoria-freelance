@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saved - DeoriaFreelance</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="css/style.css?v=7">
+</head>
+<body>
+<header class="site"><div class="wrap head1">
+<a class="logo" href="index.html">Deoria<span>Freelance</span></a>
+<div class="headbtns">
+<button id="langToggle" class="langbtn" type="button">EN</button>
+<a class="btn ctabtn" href="post.html" data-i18n="nav.post">Kaam Daalo</a>
+</div>
+</div>
+<nav class="top2"><div class="wrap navrow">
+<a href="kaam.html" data-i18n="nav.kaam">Kaam</a>
+<a href="gigs.html" data-i18n="nav.gigs">Gigs</a>
+<a href="freelancers.html" data-i18n="nav.fl">Freelancers</a>
+<a href="students.html" data-i18n="nav.students">Students</a>
+<a href="saved.html" data-i18n="nav.saved">♥ Saved</a>
+</div></nav>
+</header>
+<div class="wrap">
+<section>
+<h2 class="sec" data-i18n="saved.h">Saved (♥)</h2>
+<p class="secsub" data-i18n="saved.sub">Tumhare pasand kiye kaam aur gigs - sirf is phone pe save rehte hain</p>
+<div id="list"></div>
+</section>
+</div>
+<footer class="site"><div class="wrap">
+<div class="cols">
+<div>
+<div class="flogo">Deoria<span>Freelance</span></div>
+<p data-i18n="foot.about">Deoria aur aas-paas ka apna freelance platform. Kaam daalo ya kaam karo - free, checked listings.</p>
+</div>
+<div>
+<h4 data-i18n="foot.pages">Pages</h4>
+<a href="kaam.html" data-i18n="fl.find">Kaam dhundho</a>
+<a href="gigs.html" data-i18n="nav.gigs">Gigs</a>
+<a href="freelancers.html" data-i18n="nav.fl">Freelancers</a>
+<a href="students.html" data-i18n="nav.students">Students</a>
+<a href="post.html" data-i18n="nav.post">Kaam daalo</a>
+<a href="gig-post.html" data-i18n="gig.post">Gig daalo</a>
+<a href="join.html" data-i18n="profile.make">Profile banao</a>
+</div>
+<div>
+<h4 data-i18n="foot.contact">Contact</h4>
+<a href="mailto:dheerajhj42@gmail.com">dheerajhj42@gmail.com</a>
+</div>
+</div>
+<div class="bar" data-i18n="foot.bar">Paisa site ke through nahi jata - seedha client aur freelancer ke beech. &copy; 2026 DeoriaFreelance</div>
+</div></footer>
+<script src="js/i18n.js"></script>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+const favs=getFavs();
+let html='';
+favs.forEach(k=>{
+  const [kind,id]=k.split(':');
+  if(kind==='job'){const j=JOBS.find(x=>x.id===id);if(j)html+=jobCard(j);}
+  if(kind==='gig'){const g=GIGS.find(x=>x.id===id);if(g)html+=gigCard(g);}
+  if(kind==='fl'){const f=FREELANCERS.find(x=>x.id===id);if(f)html+=freelancerCard(f);}
+});
+document.getElementById('list').innerHTML=html||'<div class="card" data-i18n="saved.none">Abhi kuch save nahi kiya. Kaam ya gig pe ♥ dabao.</div>';
+applyLang();
+</script>
+</body>
+</html>

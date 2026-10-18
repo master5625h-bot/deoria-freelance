@@ -129,3 +129,32 @@ footer.site .bar{border-top:1px solid rgba(255,255,255,.12);padding-top:16px;tex
 .center{text-align:center}
 .mt{margin-top:14px}
 nav.top a{white-space:nowrap}
+
+/* Header 2-row + lang */
+.head1{display:flex;align-items:center;justify-content:space-between;height:54px}
+.headbtns{display:flex;align-items:center;gap:8px}
+.langbtn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;font-size:.8rem;font-weight:700;color:var(--navy);cursor:pointer}
+.langbtn:hover{border-color:var(--brand);color:var(--brand)}
+.ctabtn{padding:9px 14px;font-size:.85rem;white-space:nowrap}
+nav.top2{border-top:1px solid var(--line);background:#fff}
+.navrow{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.navrow::-webkit-scrollbar{display:none}
+.navrow a{white-space:nowrap;color:#4b5563;padding:9px 11px;font-size:.86rem;font-weight:600;border-bottom:2px solid transparent}
+.navrow a:hover{color:var(--brand);border-bottom-color:var(--brand)}
+
+/* Verified badge */
+.vbadge{display:inline-flex;align-items:center;gap:3px;background:#ecfdf5;color:#047857;border:1px solid #a7f3d0;border-radius:999px;padding:2px 9px;font-size:.72rem;font-weight:700;vertical-align:middle}
+
+/* Favourites */
+.card{position:relative}
+.heart{position:absolute;top:10px;right:10px;border:1px solid var(--line);background:#fff;border-radius:50%;width:34px;height:34px;font-size:1rem;color:#9ca3af;cursor:pointer;z-index:2}
+.heart.on{color:#e11d48;border-color:#fecdd3;background:#fff1f2}
+
+/* Students page */
+.howto{display:grid;gap:10px}
+
+/* Admin */
+.gate{max-width:420px;margin:30px auto}
+.adminsec{display:none}
+.adminsec.open{display:block}
+code.inline{background:#f3f4f6;border-radius:6px;padding:1px 6px;font-size:.85em}

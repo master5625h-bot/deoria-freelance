@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Students & Freshers - DeoriaFreelance</title>
+<meta name="description" content="Deoria ke students aur freshers ke liye freelance kaam, practice gigs aur shuru karne ka aasan tareeka.">
+<link rel="canonical" href="https://master5625h-bot.github.io/deoria-freelance/students.html">
+<link rel="stylesheet" href="css/style.css?v=7">
+</head>
+<body>
+<header class="site"><div class="wrap head1">
+<a class="logo" href="index.html">Deoria<span>Freelance</span></a>
+<div class="headbtns">
+<button id="langToggle" class="langbtn" type="button">EN</button>
+<a class="btn ctabtn" href="post.html" data-i18n="nav.post">Kaam Daalo</a>
+</div>
+</div>
+<nav class="top2"><div class="wrap navrow">
+<a href="kaam.html" data-i18n="nav.kaam">Kaam</a>
+<a href="gigs.html" data-i18n="nav.gigs">Gigs</a>
+<a href="freelancers.html" data-i18n="nav.fl">Freelancers</a>
+<a href="students.html" data-i18n="nav.students">Students</a>
+<a href="saved.html" data-i18n="nav.saved">♥ Saved</a>
+</div></nav>
+</header>
+<div class="wrap">
+<section>
+<h2 class="sec" data-i18n="stu.title">Students &amp; Freshers</h2>
+<p class="secsub" data-i18n="stu.sub2">Pehla kaam, pehla client - yahan se shuru karo</p>
+<div class="alert" data-i18n="stu.note">Dhyan: abhi listings sample hain. Asli kaam aate hi yahan dikhega. Certificates wala section baad me aayega.</div>
+<h2 class="sec" style="font-size:1.05rem" data-i18n="stu.how">Kaise shuru karein</h2>
+<div class="steps" style="margin:10px 0 20px">
+<div class="step"><div class="num">1</div><div data-i18n="stu.h1">Apna nickname aur skill chuno (asli naam zaruri nahi).</div></div>
+<div class="step"><div class="num">2</div><div data-i18n="stu.h2">Chhote kaam se shuru karo - typing, form, simple reel.</div></div>
+<div class="step"><div class="num">3</div><div data-i18n="stu.h3">Time pe kaam do, accha review milega.</div></div>
+<div class="step"><div class="num">4</div><div data-i18n="stu.h4">Phir apni gig daalo, rate badhao.</div></div>
+</div>
+<h2 class="sec" style="font-size:1.05rem" data-i18n="stu.freshjobs">Fresher-friendly kaam</h2>
+<p class="secsub" data-i18n="stu.freshsub">Jo students aaram se kar sakte hain</p>
+<div id="fresh-jobs"></div>
+<h2 class="sec" style="font-size:1.05rem;margin-top:18px" data-i18n="stu.prac">Practice gigs</h2>
+<div id="prac-gigs"></div>
+<div class="card center" style="margin-top:18px">
+<b data-i18n="stu.join">Student list me judo</b><br>
+<span class="meta" data-i18n="stu.joinsub">Naya student kaam aaye to hum batayenge</span><br>
+<a class="btn mt" id="stu-join-btn" href="#">Join karo</a>
+</div>
+</section>
+</div>
+<footer class="site"><div class="wrap">
+<div class="cols">
+<div>
+<div class="flogo">Deoria<span>Freelance</span></div>
+<p data-i18n="foot.about">Deoria aur aas-paas ka apna freelance platform. Kaam daalo ya kaam karo - free, checked listings.</p>
+</div>
+<div>
+<h4 data-i18n="foot.pages">Pages</h4>
+<a href="kaam.html" data-i18n="fl.find">Kaam dhundho</a>
+<a href="gigs.html" data-i18n="nav.gigs">Gigs</a>
+<a href="freelancers.html" data-i18n="nav.fl">Freelancers</a>
+<a href="students.html" data-i18n="nav.students">Students</a>
+<a href="post.html" data-i18n="nav.post">Kaam daalo</a>
+<a href="gig-post.html" data-i18n="gig.post">Gig daalo</a>
+<a href="join.html" data-i18n="profile.make">Profile banao</a>
+</div>
+<div>
+<h4 data-i18n="foot.contact">Contact</h4>
+<a href="mailto:dheerajhj42@gmail.com">dheerajhj42@gmail.com</a>
+</div>
+</div>
+<div class="bar" data-i18n="foot.bar">Paisa site ke through nahi jata - seedha client aur freelancer ke beech. &copy; 2026 DeoriaFreelance</div>
+</div></footer>
+<script src="js/i18n.js"></script>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.getElementById('fresh-jobs').innerHTML=JOBS.filter(j=>j.fresher).map(jobCard).join('')||'<div class="card">-</div>';
+document.getElementById('prac-gigs').innerHTML=GIGS.map(gigCard).join('');
+const body='Namaste,\n\nMujhe student list me jodna hai.\n\nNickname: \nSkill: \nContact (email ya WhatsApp): \n';
+document.getElementById('stu-join-btn').href=mailtoLink('Student list: join',body);
+</script>
+</body>
+</html>
