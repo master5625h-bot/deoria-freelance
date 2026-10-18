@@ -1,6 +1,6 @@
 /* DeoriaFreelance backend client (Supabase). Filled at provisioning. */
-const SB_URL = "";
-const SB_ANON = "";
+const SB_URL = "https://fuyzmhchzrrbiavffosw.supabase.co";
+const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ1eXptaGNoenJyYmlhdmZmb3N3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIzMzM1MTMsImV4cCI6MjEwNzkwOTUxM30.K4M1OjmKCKe3juTJ7XFyF3SDy7D1nQ_lkU6GbEw21k4";
 let _sb = null;
 function sbReady(){
   if(!SB_URL || !SB_ANON || typeof supabase==='undefined') return false;

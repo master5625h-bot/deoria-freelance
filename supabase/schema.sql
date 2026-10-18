@@ -47,11 +47,11 @@ create table if not exists public.messages (
 create or replace function public.screen_text(t text) returns text[] language plpgsql immutable as $$
 declare flags text[] := '{}'; x text := lower(coalesce(t,''));
 begin
-  if x ~ '\+?\d[\d \-]{8,}\d' then flags := flags || 'phone'; end if;
-  if x ~ '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' then flags := flags || 'email'; end if;
-  if x ~ '(https?://|www\.)' then flags := flags || 'link'; end if;
-  if x ~ '(registration fee|joining fee|security deposit|advance fee|pay first|paisa pehle|pehle paisa|guaranteed income|earning guarantee|crypto|usdt|investment plan|telegram)' then flags := flags || 'scam'; end if;
-  if x ~ '(chutiya|madarchod|bhenchod|behenchod|harami|randi|fuck|fucking|bitch|\bbc\b|\bmc\b)' then flags := flags || 'abuse'; end if;
+  if x ~ '\+?\d[\d \-]{8,}\d' then flags := flags || ARRAY['phone']; end if;
+  if x ~ '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' then flags := flags || ARRAY['email']; end if;
+  if x ~ '(https?://|www\.)' then flags := flags || ARRAY['link']; end if;
+  if x ~ '(registration fee|joining fee|security deposit|advance fee|pay first|paisa pehle|pehle paisa|guaranteed income|earning guarantee|crypto|usdt|investment plan|telegram)' then flags := flags || ARRAY['scam']; end if;
+  if x ~ '(chutiya|madarchod|bhenchod|behenchod|harami|randi|fuck|fucking|bitch|\bbc\b|\bmc\b)' then flags := flags || ARRAY['abuse']; end if;
   return flags;
 end $$;
 
@@ -62,7 +62,7 @@ begin
   f := public.screen_text(txt);
   -- contact info allowed only in the private contact field; phone/email/link in public text is flagged
   if (select count(*) from public.submissions s where s.contact_email = new.contact_email and s.created_at > now() - interval '1 hour') >= 5 then
-    f := f || 'rate-limit';
+    f := f || ARRAY['rate-limit'];
   end if;
   if array_length(f,1) > 0 then
     new.status := 'flagged'; new.flags := f;
@@ -133,3 +133,13 @@ create policy msg_read on public.messages for select to authenticated using (sta
 
 -- grants
 grant select on public.public_listings to anon, authenticated;
+
+-- table grants
+grant insert on public.submissions to anon, authenticated;
+grant select, update on public.submissions to authenticated;
+grant select on public.profiles to anon;
+grant select, insert, update on public.profiles to authenticated;
+grant select on public.ratings to anon;
+grant select, insert on public.ratings to authenticated;
+grant update on public.ratings to authenticated;
+grant select, insert on public.messages to authenticated;
