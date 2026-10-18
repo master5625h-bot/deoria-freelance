@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gigs - fixed price services - DeoriaFreelance</title>
+<meta name="description" content="DeoriaFreelance gigs: freelancer ki fixed-price services - reel editing, poster design, typing. Package chuno aur order karo.">
+<link rel="canonical" href="https://master5625h-bot.github.io/deoria-freelance/gigs.html">
+<link rel="stylesheet" href="css/style.css?v=5">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="logo" href="index.html">Deoria<span>Freelance</span></a>
+<nav class="top"><a href="kaam.html">Kaam</a><a href="gigs.html">Gigs</a><a href="freelancers.html">Freelancers</a><a class="cta" href="post.html">Kaam Daalo</a></nav>
+</div></header>
+<div class="wrap">
+<section>
+<h2 class="sec">Gigs</h2>
+<p class="secsub">Freelancer ki fixed-price service - package chuno, order karo</p>
+<div class="filters" id="filters"></div>
+<div id="gigs"></div>
+<div class="card center">
+<b>Freelancer ho? Apni service daalo</b><br>
+<a class="btn mt" href="gig-post.html">Gig daalo (free)</a>
+</div>
+</section>
+</div>
+<footer class="site"><div class="wrap">
+<div class="cols">
+<div>
+<div class="flogo">Deoria<span>Freelance</span></div>
+<p>Deoria aur aas-paas ka apna freelance platform. Kaam daalo ya kaam karo - free, checked listings.</p>
+</div>
+<div>
+<h4>Pages</h4>
+<a href="kaam.html">Kaam dhundho</a>
+<a href="gigs.html">Gigs</a>
+<a href="freelancers.html">Freelancers</a>
+<a href="post.html">Kaam daalo</a>
+<a href="join.html">Profile banao</a>
+</div>
+<div>
+<h4>Contact</h4>
+<a href="mailto:dheerajhj42@gmail.com">dheerajhj42@gmail.com</a>
+</div>
+</div>
+<div class="bar">Paisa site ke through nahi jata - seedha client aur freelancer ke beech. &copy; 2026 DeoriaFreelance</div>
+</div></footer>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+const fbox=document.getElementById('filters'), gbox=document.getElementById('gigs');
+function render(cat){
+  fbox.innerHTML=CATEGORIES.map(c=>'<button class="'+(c===cat?'on':'')+'" onclick="render(\''+c+'\')">'+c+'</button>').join('');
+  const list=GIGS.filter(g=>cat==='Sab'||g.cat===cat);
+  gbox.innerHTML=list.length?list.map(gigCard).join(''):'<div class="card">Is category me abhi koi gig nahi.</div>';
+}
+render('Sab');
+</script>
+</body>
+</html>

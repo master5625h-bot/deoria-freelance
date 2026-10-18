@@ -4,27 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DeoriaFreelance - Deoria me kaam dhundho, freelancer pao</title>
-<meta name="description" content="DeoriaFreelance - Deoria aur aas-paas ke ilaake ki freelance site. Chhote kaam daalo (editing, design, typing, form) ya freelancer ke roop me kaam karke paisa kamao.">
+<meta name="description" content="DeoriaFreelance - Deoria aur aas-paas ke ilaake ki freelance site. Kaam daalo, service (gig) order karo, ya freelancer ban ke paisa kamao.">
 <meta property="og:title" content="DeoriaFreelance - Deoria ki freelance site">
-<meta property="og:description" content="Kaam daalo ya kaam karo - editing, design, typing, form bharna. Deoria ke liye.">
+<meta property="og:description" content="Kaam daalo, gigs order karo, ya freelancer bano - editing, design, typing, form bharna. Deoria ke liye.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://master5625h-bot.github.io/deoria-freelance/">
 <link rel="canonical" href="https://master5625h-bot.github.io/deoria-freelance/">
-<link rel="stylesheet" href="css/style.css?v=3">
+<link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
 <header class="site"><div class="wrap">
 <a class="logo" href="index.html">Deoria<span>Freelance</span></a>
-<nav class="top"><a href="kaam.html">Kaam</a><a href="freelancers.html">Freelancers</a><a class="cta" href="post.html">Kaam Daalo</a></nav>
+<nav class="top"><a href="kaam.html">Kaam</a><a href="gigs.html">Gigs</a><a href="freelancers.html">Freelancers</a><a class="cta" href="post.html">Kaam Daalo</a></nav>
 </div></header>
 <div class="hero"><div class="wrap">
 <div class="eyebrow">DEORIA KA APNA FREELANCE PLATFORM</div>
-<h1>Deoria me kaam hai?<br>Freelancer yahan milega.</h1>
-<p>Reel editing, poster design, typing, form bharna - chhote kaam daalo, local freelancer karega. Ya khud freelancer bano aur paisa kamao.</p>
-<div class="btnrow">
-<a class="btn" href="kaam.html">Kaam Dhundho</a>
-<a class="btn alt" href="post.html">Kaam Daalo</a>
-</div>
+<h1>Kaam ho ya <em>hunar</em>,<br>yahan dono milte hain.</h1>
+<p>Reel editing, poster design, typing, form bharna - kaam daalo, gig order karo, ya khud freelancer bano.</p>
+<form class="search" action="kaam.html" method="get">
+<input type="search" name="q" placeholder="Kya dhundh rahe ho? Jaise: reel editing" aria-label="Kaam search">
+<button type="submit">Search</button>
+</form>
+<div class="quick">Popular: <a href="kaam.html?cat=Video%20Editing">Reel editing</a> <a href="kaam.html?cat=Design">Poster</a> <a href="kaam.html?cat=Typing">Typing</a></div>
 </div></div>
 <div class="wrap">
 <div class="trust">
@@ -33,21 +34,42 @@
 <div class="t"><b>Local</b>Deoria aur aas-paas ke liye</div>
 </div>
 <section>
-<h2 class="sec">Kaise kaam karta hai</h2>
-<p class="secsub">4 aasan steps me kaam shuru</p>
-<div class="steps">
-<div class="step"><div class="num">1</div><div>Client kaam daalta hai - title, budget, detail.</div></div>
-<div class="step"><div class="num">2</div><div>Hum kaam check karke site pe list karte hain (fake kaam nahi chalta).</div></div>
-<div class="step"><div class="num">3</div><div>Freelancer "Mai karunga" dabata hai, hum dono ko jodte hain.</div></div>
-<div class="step"><div class="num">4</div><div>Paisa seedha client aur freelancer ke beech (UPI/cash). Site paisa nahi sambhalti.</div></div>
+<h2 class="sec">Category chuno</h2>
+<p class="secsub">Jo chahiye, ek tap me</p>
+<div class="tiles">
+<a class="tile" href="kaam.html?cat=Video%20Editing"><span class="ic">🎬</span><b>Video Editing</b><small>Reels, wedding, YouTube</small></a>
+<a class="tile" href="kaam.html?cat=Design"><span class="ic">🎨</span><b>Design</b><small>Poster, logo, banner</small></a>
+<a class="tile" href="kaam.html?cat=Typing"><span class="ic">⌨️</span><b>Typing</b><small>Hindi/English, data entry</small></a>
+<a class="tile" href="kaam.html?cat=Form%20Bharna"><span class="ic">📝</span><b>Form Bharna</b><small>Online forms, documents</small></a>
+<a class="tile" href="kaam.html?cat=Social%20Media"><span class="ic">📱</span><b>Social Media</b><small>Page manage, posts</small></a>
+<a class="tile" href="kaam.html"><span class="ic">✨</span><b>Aur Kuch</b><small>Sab kaam dekho</small></a>
 </div>
 </section>
 <section>
 <div class="sechead">
-<div><h2 class="sec">Latest kaam</h2><p class="secsub">Naye kaam, seedha Deoria se</p></div>
+<div><h2 class="sec">Popular gigs</h2><p class="secsub">Fixed price, seedha order</p></div>
+<a href="gigs.html">Sab dekho →</a>
+</div>
+<div id="top-gigs"></div>
+</section>
+<section>
+<div class="sechead">
+<div><h2 class="sec">Latest kaam</h2><p class="secsub">Client ne daala, tum karo</p></div>
 <a href="kaam.html">Sab dekho →</a>
 </div>
 <div id="latest-jobs"></div>
+</section>
+<section>
+<div class="intern">
+<span class="badge">JALD AA RAHA HAI</span>
+<h2 class="sec">Students & freshers ke liye</h2>
+<p class="secsub" style="color:#92400e">Internship aur fresher opportunities ka alag section ban raha hai - practice ke kaam, certificates, aur pehla client. Shuru hone pe yahan dikhega.</p>
+<div class="cards">
+<div class="ph"><span class="ic">🎓</span>Internships</div>
+<div class="ph"><span class="ic">💼</span>Fresher kaam</div>
+<div class="ph"><span class="ic">🏅</span>Certificates</div>
+</div>
+</div>
 </section>
 <section>
 <div class="sechead">
@@ -67,6 +89,7 @@
 <div>
 <h4>Pages</h4>
 <a href="kaam.html">Kaam dhundho</a>
+<a href="gigs.html">Gigs</a>
 <a href="freelancers.html">Freelancers</a>
 <a href="post.html">Kaam daalo</a>
 <a href="join.html">Profile banao</a>
@@ -81,6 +104,7 @@
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
 <script>
+document.getElementById('top-gigs').innerHTML = GIGS.slice(0,2).map(gigCard).join('');
 document.getElementById('latest-jobs').innerHTML = JOBS.slice(0,3).map(jobCard).join('');
 document.getElementById('top-freelancers').innerHTML = FREELANCERS.slice(0,3).map(freelancerCard).join('');
 </script>

@@ -21,3 +21,14 @@ const FREELANCERS = [
  {id:"typefast",name:"TypeFast",skill:"Typing",rate:"₹20 / page",city:"Deoria",sample:true,
   about:"Hindi aur English typing, data entry, PDF banane ka kaam.",samples:["Typed notes","Form data entry"]}
 ];
+const GIGS = [
+ {id:"G-201",title:"Instagram reel edit (1 min)",by:"EditorPro",cat:"Video Editing",sample:true,delivery:"2 din",
+  desc:"Aapke clips se professional reel: cuts, music sync, captions.",
+  packs:[{n:"Basic",p:"299",d:"1 reel, simple cuts + music"},{n:"Standard",p:"599",d:"1 reel + captions + transitions"},{n:"Premium",p:"999",d:"2 reels + transitions + thumbnail"}]},
+ {id:"G-202",title:"Poster / banner design",by:"DesignWala",cat:"Design",sample:true,delivery:"1 din",
+  desc:"Dukaan, clinic, event ke liye saaf aur sundar design.",
+  packs:[{n:"Basic",p:"200",d:"1 design, 1 badlav (revision)"},{n:"Standard",p:"450",d:"2 designs + 3 badlav"},{n:"Premium",p:"800",d:"3 designs + unlimited badlav + print file"}]},
+ {id:"G-203",title:"Hindi/English typing (10 page)",by:"TypeFast",cat:"Typing",sample:true,delivery:"2 din",
+  desc:"Notes, form data, documents - saaf typing, PDF ke saath.",
+  packs:[{n:"Basic",p:"150",d:"5 page typing"},{n:"Standard",p:"300",d:"10 page + PDF"},{n:"Premium",p:"500",d:"20 page + PDF + table/formatting"}]}
+];

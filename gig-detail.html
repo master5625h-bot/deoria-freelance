@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gig detail - DeoriaFreelance</title>
+<meta name="description" content="Gig ke packages dekho aur order karo.">
+<link rel="stylesheet" href="css/style.css?v=5">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="logo" href="index.html">Deoria<span>Freelance</span></a>
+<nav class="top"><a href="kaam.html">Kaam</a><a href="gigs.html">Gigs</a><a href="freelancers.html">Freelancers</a><a class="cta" href="post.html">Kaam Daalo</a></nav>
+</div></header>
+<div class="wrap">
+<section id="detail"></section>
+</div>
+<footer class="site"><div class="wrap">
+<div class="cols">
+<div>
+<div class="flogo">Deoria<span>Freelance</span></div>
+<p>Deoria aur aas-paas ka apna freelance platform. Kaam daalo ya kaam karo - free, checked listings.</p>
+</div>
+<div>
+<h4>Pages</h4>
+<a href="kaam.html">Kaam dhundho</a>
+<a href="gigs.html">Gigs</a>
+<a href="freelancers.html">Freelancers</a>
+<a href="post.html">Kaam daalo</a>
+<a href="join.html">Profile banao</a>
+</div>
+<div>
+<h4>Contact</h4>
+<a href="mailto:dheerajhj42@gmail.com">dheerajhj42@gmail.com</a>
+</div>
+</div>
+<div class="bar">Paisa site ke through nahi jata - seedha client aur freelancer ke beech. &copy; 2026 DeoriaFreelance</div>
+</div></footer>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+const id=new URLSearchParams(location.search).get('id');
+const g=GIGS.find(x=>x.id===id);
+const box=document.getElementById('detail');
+if(!g){box.innerHTML='<div class="card">Gig nahi mila. <a href="gigs.html">Sab gigs</a></div>';}
+else{
+  document.title=g.title+' - DeoriaFreelance';
+  let packs='';
+  g.packs.forEach(p=>{
+    const body='Namaste,\n\nMujhe ye gig order karni hai:\nGig: '+g.title+' ('+g.id+')\nPackage: '+p.n+' (₹'+p.p+')\nFreelancer: '+g.by+'\n\nKaam ki detail / files ke baare me: \nMera naam: \nMera WhatsApp ya email: \n';
+    packs+='<div class="card" style="margin-bottom:10px"><div class="job-head"><h3 style="font-size:1rem">'+esc(p.n)+'</h3><span class="job-budget">₹'+esc(p.p)+'</span></div>'
+    +'<div class="snip">'+esc(p.d)+'</div>'
+    +'<a class="btn big" style="padding:12px" href="'+mailtoLink('Order: '+g.title+' - '+p.n+' (₹'+p.p+')',body)+'">'+esc(p.n)+' order karo</a></div>';
+  });
+  box.innerHTML='<div class="card"><div class="job-head"><h3>'+esc(g.title)+'</h3>'+(g.sample?'<span class="tag amber">Sample</span>':'')+'</div>'
+  +'<div class="meta"><span class="tag">'+esc(g.cat)+'</span>'+esc(g.by)+' • Delivery: '+esc(g.delivery)+'</div>'
+  +'<p class="mt">'+esc(g.desc)+'</p></div>'
+  +'<h2 class="sec" style="margin:16px 0 10px">Package chuno</h2>'+packs
+  +'<p class="note center">Order dabate hi email khulegi. Detail likh ke bhej do - hum freelancer se jod denge. Paisa seedha freelancer ko milega, site beech me nahi aati.</p>'
+  +'<div class="center mt"><a href="gigs.html">← Sab gigs</a></div>';
+}
+</script>
+</body>
+</html>

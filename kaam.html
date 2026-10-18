@@ -4,19 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kaam dhundho - DeoriaFreelance</title>
-<meta name="description" content="Deoria me available freelance kaam: video editing, design, typing, form bharna, social media. Category chuno aur apply karo.">
+<meta name="description" content="Deoria me available freelance kaam: video editing, design, typing, form bharna, social media. Search karo, category chuno, apply karo.">
 <link rel="canonical" href="https://master5625h-bot.github.io/deoria-freelance/kaam.html">
-<link rel="stylesheet" href="css/style.css?v=3">
+<link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
 <header class="site"><div class="wrap">
 <a class="logo" href="index.html">Deoria<span>Freelance</span></a>
-<nav class="top"><a href="kaam.html">Kaam</a><a href="freelancers.html">Freelancers</a><a class="cta" href="post.html">Kaam Daalo</a></nav>
+<nav class="top"><a href="kaam.html">Kaam</a><a href="gigs.html">Gigs</a><a href="freelancers.html">Freelancers</a><a class="cta" href="post.html">Kaam Daalo</a></nav>
 </div></header>
 <div class="wrap">
 <section>
 <h2 class="sec">Sab kaam</h2>
-<p class="secsub">Category chuno, kaam dekho, "Mai karunga" dabao</p>
+<p class="secsub">Search karo, category chuno, "Mai karunga" dabao</p>
+<form class="search" style="margin:0 0 14px;box-shadow:var(--shadow)" action="kaam.html" method="get">
+<input type="search" name="q" id="q" placeholder="Kaam search karo..." aria-label="Kaam search">
+<button type="submit">Search</button>
+</form>
 <div class="filters" id="filters"></div>
 <div id="jobs"></div>
 </section>
@@ -30,6 +34,7 @@
 <div>
 <h4>Pages</h4>
 <a href="kaam.html">Kaam dhundho</a>
+<a href="gigs.html">Gigs</a>
 <a href="freelancers.html">Freelancers</a>
 <a href="post.html">Kaam daalo</a>
 <a href="join.html">Profile banao</a>
@@ -44,13 +49,19 @@
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
 <script>
+const params=new URLSearchParams(location.search);
+let curCat=params.get('cat')||'Sab';
+let curQ=(params.get('q')||'').toLowerCase();
+document.getElementById('q').value=params.get('q')||'';
 const fbox=document.getElementById('filters'), jbox=document.getElementById('jobs');
 function render(cat){
+  curCat=cat;
   fbox.innerHTML=CATEGORIES.map(c=>'<button class="'+(c===cat?'on':'')+'" onclick="render(\''+c+'\')">'+c+'</button>').join('');
-  const list=JOBS.filter(j=>cat==='Sab'||j.cat===cat);
-  jbox.innerHTML=list.length?list.map(jobCard).join(''):'<div class="card">Is category me abhi koi kaam nahi.</div>';
+  const list=JOBS.filter(j=>(cat==='Sab'||j.cat===cat)&&(!curQ||(j.title+' '+j.desc+' '+j.cat+' '+j.city).toLowerCase().includes(curQ)));
+  jbox.innerHTML=list.length?list.map(jobCard).join(''):'<div class="card">Koi kaam nahi mila. Doosri category ya search try karo.</div>';
 }
-render('Sab');
+if(!CATEGORIES.includes(curCat))curCat='Sab';
+render(curCat);
 </script>
 </body>
 </html>
